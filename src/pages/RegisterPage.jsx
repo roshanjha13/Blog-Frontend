@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Link } from "react-router-dom";
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -12,7 +12,14 @@ const RegisterPage = () => {
       method: "POST",
       body: JSON.stringify({ username, email, password }),
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
     });
+    console.log(result);
+    if (result.ok === false) {
+      alert("register failed");
+    } else {
+      alert("registration succesful");
+    }
   };
   return (
     <form className="register" onSubmit={register}>
@@ -36,6 +43,7 @@ const RegisterPage = () => {
         onChange={(ev) => setPassword(ev.target.value)}
       />
       <button> Register</button>
+      <Link to="/login">Already register ? redireact to login</Link>
     </form>
   );
 };
